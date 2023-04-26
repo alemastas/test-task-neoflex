@@ -1,4 +1,5 @@
 
+var eng = true;
 
 window.onload = function(){
 

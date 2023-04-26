@@ -11,6 +11,39 @@ h2{
     line-height: 30px;
 }
 
+h3{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+
+    color: #1C1C27;
+}
+
+.colored{
+    color: #FFA542;
+}
+
+.striked{
+    text-decoration: line-through;
+}
+
+.regular{
+    line-height: 0;
+}
+
+.links_text{
+    line-height: 30px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+
+    color: #1C1C27;
+}
+
 body{
     background: #EAEAEA;
 }
@@ -18,7 +51,6 @@ body{
 .wrapper{
     margin: 0 auto;
     width: 1110px;
-    height: 500px;
 }
 
 header{
@@ -31,33 +63,135 @@ header{
     justify-content: space-between;
 }
 
+.header_logo{
+    position: relative;
+    left: -20px;
+}
+
 .iconcs{
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    margin-right: 15px;
+    margin-right: 28px;
 }
 
 .icon{
-    margin-left: 15px;
+    margin-left: 40px;
+}
+
+.main_title{
+    position: relative;
+    top: 5px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #838383;
 }
 
 main{
     width: 1110px;
-    height: 300px;
+    min-height: 140vh;
     /* background-color: rebeccapurple; */
 }
 
+.headphones_container{
+    position: relative;
+    margin-top: 20px;
+
+    width: 1110px;
+}
+
+.card_container{
+    position: relative;
+    width: 1140px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card{
+    position: relative;
+    width: 340px;
+    height: 407px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+
+    margin: 15px;
+}
+
+.card_img{
+    text-align: center;
+}
+
+.card_line{
+    position: relative;
+    top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px 0 25px;
+}
+
+.card_rate{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card_span{
+    position: relative;
+    left: 5px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+
+    color: #838383;
+}
+
+.card_price{
+    display: flex;
+    flex-direction: column;
+}
+
+.card_button{
+    width: 70px;
+    height: 40px;
+    border: none;
+    background-color: inherit;
+    text-align: center;
+}
+
+.card_button:hover{
+    cursor: pointer;
+    background-color: #FFA542;
+    border-radius: 5px;
+}
+
 footer{
+    position: fixed;
+    bottom: 0px;
+
     height: 150px;
     width: 1110px;
 
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     background-color: white;
-    border-radius: 10px 10px 0 0;
+    border-radius: 30px 30px 0 0;
 }
 
 .footer_logo{
@@ -67,30 +201,49 @@ footer{
 }
 
 .footer_links{
-    position: relative;
-    width: 427px;
-    height: 82px;
-
     display: flex;
-    flex-direction: row;
-    margin: 29px 70px 0 300px;
+    justify-content: space-between;
+
+    width: 400px;
+    padding-top: 10px;
 }
 
 .links_ul{
     list-style: none;
 }
 
-.services{
+.links_li{
+    line-height: 30px;
 
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+
+    color: #1C1C27;
 }
 
-.lang_button{
-    
+.services{
+    margin: 0 0 0 50px;
 }
 
 .lang_handler{
     display: flex;
     flex-direction: row;
+
+    margin-top: 30px;
+}
+
+.lang_button{
+    border: none;
+    background-color: inherit;
+    text-align: center;
+}
+
+.lang_button:hover{
+    cursor: pointer;
+    background-color: #FFA542;
+    border-radius: 5px;
 }
 
 .lang_icon{
@@ -108,5 +261,5 @@ footer{
     align-items: center;
     justify-content: space-between;
 
-    margin: 29px 27px 0 0;
+    margin: 29px 20px 0 0;
 }
