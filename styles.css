@@ -68,6 +68,11 @@ header{
     left: -20px;
 }
 
+.logo_link{
+    text-decoration: none;
+    color: black;
+}
+
 .iconcs{
     display: flex;
     flex-direction: row;
@@ -95,7 +100,7 @@ header{
 
 main{
     width: 1110px;
-    min-height: 140vh;
+    height: 1300px;
     /* background-color: rebeccapurple; */
 }
 
