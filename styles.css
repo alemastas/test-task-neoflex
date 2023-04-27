@@ -100,8 +100,7 @@ header{
 
 main{
     width: 1110px;
-    height: 1300px;
-    /* background-color: rebeccapurple; */
+    height: 250vh;
 }
 
 .headphones_container{
@@ -133,6 +132,9 @@ main{
 }
 
 .card_img{
+    height: 200px;
+    padding-top: 30px;
+
     text-align: center;
 }
 
