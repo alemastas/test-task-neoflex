@@ -75,8 +75,8 @@ function createCard(object, html_element){
     <div class="card_line">
         <div class="card_name"><h3>${title}</h3></div>
         <div class="card_price">
-            <p class="regular colored">${price} &#8381</p>
-            <p class="regular colored striked">2927 &#8381</p>
+            <p class="regular colored plus_sized">${price} &#8381</p>
+            <p class="regular colored striked">${price + ((price/100) * 15)} &#8381</p>
         </div>
     </div>
     

@@ -18,6 +18,9 @@ buttonRus.addEventListener('click', function(){
     basket.innerHTML = 'Корзина';
     contacts.innerHTML = 'Контакты';
     services.innerHTML = 'Условия сервиса';
+
+    buttonEng.classList.remove('colored');
+    buttonRus.classList.add('colored');
 });
 
 buttonEng.addEventListener('click', function(){
@@ -28,4 +31,7 @@ buttonEng.addEventListener('click', function(){
     basket.innerHTML = 'Basket';
     contacts.innerHTML = 'Contacts';
     services.innerHTML = 'Terms of service';
+
+    buttonRus.classList.remove('colored');
+    buttonEng.classList.add('colored');
 });

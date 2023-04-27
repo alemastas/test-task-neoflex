@@ -21,6 +21,11 @@ h3{
     color: #1C1C27;
 }
 
+.non_decoration{
+    text-decoration: none;
+    color: black;
+}
+
 .colored{
     color: #FFA542;
 }
@@ -31,6 +36,11 @@ h3{
 
 .regular{
     line-height: 0;
+    margin: 10px;
+}
+
+.plus_sized{
+    font-size: 20px;
 }
 
 .links_text{
@@ -41,7 +51,6 @@ h3{
     font-weight: 600;
     font-size: 17px;
 
-    color: #1C1C27;
 }
 
 body{
