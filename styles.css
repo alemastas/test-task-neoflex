@@ -50,7 +50,6 @@ h3{
     font-style: normal;
     font-weight: 600;
     font-size: 17px;
-
 }
 
 body{
@@ -93,6 +92,31 @@ header{
 .icon{
     margin-left: 40px;
 }
+
+.circle_indicator{
+    position: relative;
+    bottom: 10px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    z-index: 1;
+    background-color: #FFA542;
+}
+
+#basket_indicator{
+    position: relative;
+    left: 4px;
+
+    font-size: 20px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    line-height: 21px;
+
+    color: white;
+}
+
 
 .main_title{
     position: relative;
@@ -183,7 +207,6 @@ main{
 
 .card_button{
     width: 70px;
-    height: 40px;
     border: none;
     background-color: inherit;
     text-align: center;
@@ -192,7 +215,7 @@ main{
 .card_button:hover{
     cursor: pointer;
     background-color: #FFA542;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 footer{
@@ -278,4 +301,9 @@ footer{
     justify-content: space-between;
 
     margin: 29px 20px 0 0;
+}
+
+.minimize_icon{
+    width: 33px;
+    height: 33px;
 }
