@@ -133,7 +133,7 @@ header{
 
 main{
     width: 1110px;
-    height: 250vh;
+    min-height: 1700px;
 }
 
 .headphones_container{
@@ -235,7 +235,8 @@ footer{
 
 .footer_logo{
     position: relative;
-
+    pointer-events: none; /* unactiveate */
+    cursor: default;
     margin: 10px 0 0 18px;
 }
 
@@ -269,6 +270,9 @@ footer{
 .lang_handler{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    position: relative;
+    left: 10px;
 
     margin-top: 30px;
 }
@@ -288,6 +292,19 @@ footer{
 .lang_icon{
     width: 20px;
     height: 20px;
+}
+
+.social_icon:hover::after {
+    content: attr(data-title);
+    position: absolute; 
+    left: 20%; top: 30%; 
+    z-index: 1; 
+    background: #ffa442d4; 
+    font-family: 'Montserrat';
+    font-size: 15px; 
+    padding: 5px 10px; 
+    border: 1px solid #333; 
+    border-radius: 5px;
 }
 
 .social_media{

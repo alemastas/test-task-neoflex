@@ -1,4 +1,6 @@
 
+// <----------------------- language handler ----------------------->
+
 // change language buttons
 const buttonEng = document.getElementById('eng');
 const buttonRus = document.getElementById('rus');
@@ -70,8 +72,11 @@ function onEnglish(){
 }
 
 
-// <----------------------- logic ------------------------>
+// <----------------------- logic ----------------------->
 
+window.onload = function(){
+    CardRendering(); // cards rendering
+}
 
 // shop items headphones
 const headphones = [
@@ -80,74 +85,90 @@ const headphones = [
         img: 'Img/headphones/Image1.png',
         title: 'Apple BYZ S852I', 
         price: 2927,
-        rate: 4.7
+        rate: 4.7,
+        type: 'hdph',
+        counts: 1
     },
     {
         id: 1,
         img: 'Img/headphones/Image2.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7
+        title: 'Apple EarPods', 
+        price: 2327,
+        rate: 4.5,
+        type: 'hdph',
+        counts: 1
     },
     {
         id: 2,
         img: 'Img/headphones/Image3.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7
+        title: 'Apple EarPods', 
+        price: 2327,
+        rate: 4.5,
+        type: 'hdph',
+        counts: 1
     },
     {
         id: 3,
         img: 'Img/headphones/Image1.png',
-        title: 'Apple BYZ S852I', 
+        title: 'Apple BYZ S8521', 
         price: 2927,
-        rate: 4.7
+        rate: 4.7,
+        type: 'hdph',
+        counts: 1
     },
     {
         id: 4,
         img: 'Img/headphones/Image2.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7
+        title: 'Apple EarPods', 
+        price: 2327,
+        rate: 4.5,
+        type: 'hdph',
+        counts: 1
     },
     {
         id: 5,
         img: 'Img/headphones/Image3.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7
-    }
-
-];
-
-// shop items wireless headphones
-const wirelessHeadphones = [
+        title: 'Apple EarPods', 
+        price: 2327,
+        rate: 4.5,
+        type: 'hdph',
+        counts: 1
+    },
     {
         id: 6,
         img: 'Img/headphones/Image4.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7
+        title: 'Apple AirPods', 
+        price: 9527,
+        rate: 4.7,
+        type: 'wrls',
+        counts: 1
     },
     {
         id: 7,
         img: 'Img/headphones/Image5.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7
+        title: 'GERLAX HG-04', 
+        price: 6527,
+        rate: 4.7,
+        type: 'wrls',
+        counts: 1
     },
     {
         id: 8,
         img: 'Img/headphones/Image6.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7
+        title: 'BOROFONE B04', 
+        price: 7527,
+        rate: 4.7,
+        type: 'wrls',
+        counts: 1
     }
-]
 
-function createCard(object, html_element){ // item's cards rendering
+];
 
-    let {id, img, title, price, rate} = object;
+function createCard(object){ // item's cards rendering
+
+    let {id, img, title, price, rate, type} = object;
+    let html_element = '';
+    type == 'hdph' ? html_element = card_container : html_element = wrls_container;
 
     let card = document.createElement('div');
     card.classList.add('card');
@@ -173,28 +194,31 @@ function createCard(object, html_element){ // item's cards rendering
     </div>`
 }
 
-headphones.forEach(el =>{ // call rendering headphones(card_container) section
-    createCard(el, card_container);
-})
+function CardRendering(){
+    headphones.forEach(el =>{ // call rendering headphones(card_container) section
+        createCard(el);
+    })
 
-wirelessHeadphones.forEach(el =>{ // call rendering wireless headphones(wrls_container) section
-    createCard(el, wrls_container);
-})
-
-document.onclick = event => { // get event for function
-    if(event.target.classList.contains('button_class_selector')){
-        addBasket(event.target.id);
+    document.onclick = event => { // get event for function
+        if(event.target.classList.contains('button_class_selector')){
+            addBasket(event.target.id);
+        }
+        basket_indicator.innerHTML = localStorage.length; // indicator rendering
     }
 
-    basket_indicator.innerHTML = localStorage.length; // indicator rendering
+    const basketArr = [];
 }
 
 function getIdNumber(str){ // get id from button name
     return String(str[str.length - 1])
 }
 
-function addBasket(id){ // add item to local storage
-    if(getIdNumber(id) < 6){ localStorage.setItem(id, JSON.stringify(headphones[getIdNumber(id)])) }
-    else { localStorage.setItem(id, JSON.stringify(wirelessHeadphones[getIdNumber(id) - 6])) }
-    // here is id crutch
+// function isBasketEmpty(id){
+//     if(localStorage.getItem(id) == null){
+//         localStorage.setItem(id, JSON.stringify(headphones[getIdNumber(id)]))
+//     }
+// }
+
+function addBasket(id){ // add item to local storage)
+    localStorage.setItem(id, JSON.stringify(headphones[getIdNumber(id)]));
 };
