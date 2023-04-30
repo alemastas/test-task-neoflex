@@ -21,8 +21,6 @@ const card_container = document.getElementById('card_container');
 // indicator
 const basket_indicator = document.getElementById('basket_indicator');
 
-basket_indicator.innerHTML = localStorage.length;
-
 // change language functions
 let lang = sessionStorage.getItem('lang');
 if(lang ==! null || lang == undefined){
@@ -74,8 +72,30 @@ function onEnglish(){
 
 // <----------------------- logic ----------------------->
 
+const basketArray = []; // work array for save basket items
+
+function basketIndicatorFunction(){ // count the array length
+    let sumOfCounts = 0;
+    (JSON.parse( localStorage.getItem('basketArray')) ).map(el => { 
+        sumOfCounts += el.counts
+    })
+    return sumOfCounts;
+}
+
 window.onload = function(){
     CardRendering(); // cards rendering
+
+    document.onclick = event => { // get event for function
+        if(event.target.classList.contains('button_class_selector')){
+            addBasket(event.target.id);
+        }
+    }
+
+    if(localStorage.getItem('basketArray') == null){ // basket in local storage created if basket is empty
+        localStorage.setItem('basketArray', JSON.stringify(basketArray));
+    }
+
+    basket_indicator.innerHTML = basketIndicatorFunction(); // indicator
 }
 
 // shop items headphones
@@ -198,27 +218,26 @@ function CardRendering(){
     headphones.forEach(el =>{ // call rendering headphones(card_container) section
         createCard(el);
     })
-
-    document.onclick = event => { // get event for function
-        if(event.target.classList.contains('button_class_selector')){
-            addBasket(event.target.id);
-        }
-        basket_indicator.innerHTML = localStorage.length; // indicator rendering
-    }
-
-    const basketArr = [];
 }
 
 function getIdNumber(str){ // get id from button name
     return String(str[str.length - 1])
 }
 
-// function isBasketEmpty(id){
-//     if(localStorage.getItem(id) == null){
-//         localStorage.setItem(id, JSON.stringify(headphones[getIdNumber(id)]))
-//     }
-// }
+function addBasket(id){ // add item to local storage)            FIX THAT
+    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ) // get basket
 
-function addBasket(id){ // add item to local storage)
-    localStorage.setItem(id, JSON.stringify(headphones[getIdNumber(id)]));
+    // temp_basket.map(el => {
+    //     if(el.id == headphones[getIdNumber(id)].id){
+    //         el.counts += 1;
+    //     } else {
+    //         temp_basket.push( headphones[getIdNumber(id)] );
+    //     }
+    // })
+
+    temp_basket.push( headphones[getIdNumber(id)] );
+
+    localStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
+
+    basket_indicator.innerHTML = basketIndicatorFunction() // update basket indicator
 };

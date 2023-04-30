@@ -67,3 +67,66 @@ function onEnglish(){
     buttonRus.classList.remove('colored');
     buttonEng.classList.add('colored');
 }
+
+// <----------------------- logic ----------------------->
+
+window.onload = function(){
+    CardRendering(); // cards rendering
+
+    document.onclick = event => { // get event for function
+        if(event.target.classList.contains('button_class_selector')){
+            addBasket(event.target.id);
+        }
+        basket_indicator.innerHTML = localStorage.length; // indicator rendering
+    }
+}
+
+function createCard(object){ // item's cards rendering
+
+    let {id, img, title, price, rate, type} = object;
+
+    let card = document.createElement('div');
+    card.classList.add('card');
+    basket_container.append(card)
+
+    card.innerHTML = `
+    <div class="card_img"><img src="${img}" alt="headphones"></img></div>
+    <div class="card_line">
+        <div class="card_name"><h3>${title}</h3></div>
+        <div class="card_price">
+            <p class="regular colored plus_sized">${price} &#8381</p>
+            <p class="regular colored striked">${price + ((price/100) * 15)} &#8381</p>
+        </div>
+    </div>
+    
+    <div class="card_line">
+        <div class="card_rate">
+            <img src="Img/iconcs/Star.png" alt="star">
+            <span class="card_span">${rate}</span>
+        </div>
+        <div><button class="card_button"><p class="button_class_selector plus_sized" 
+        id="buy_button ${id}">Buy</p></button></div>
+    </div>`
+}
+
+function CardRendering(){
+
+    localStorage.forEach(el =>{
+        if(JSON.parse(localStorage.getItem(el)).slice(0, 5) == button){
+            console.log(JSON.parse(el).slice(0, 5))
+        }
+    })
+
+for(let i = 0; i < localStorage.length; i++){
+    localStorage.getItem()
+}
+
+    // headphones.forEach(el =>{ // call rendering headphones(card_container) section
+    //     createCard(el);
+    // })
+
+}
+
+function getIdNumber(str){ // get id from button name
+    return String(str[str.length - 1])
+}
