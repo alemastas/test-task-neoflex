@@ -224,20 +224,34 @@ function getIdNumber(str){ // get id from button name
     return String(str[str.length - 1])
 }
 
-function addBasket(id){ // add item to local storage)            FIX THAT
-    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ) // get basket
-
-    // temp_basket.map(el => {
-    //     if(el.id == headphones[getIdNumber(id)].id){
-    //         el.counts += 1;
-    //     } else {
-    //         temp_basket.push( headphones[getIdNumber(id)] );
-    //     }
-    // })
-
-    temp_basket.push( headphones[getIdNumber(id)] );
-
-    localStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
-
+function addBasket(id){ // add item to local storage)
+    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
+    if(temp_basket.length == 0){
+        inNotDublicate(id);
+    } else {
+        ifDublicate(id);
+    }
     basket_indicator.innerHTML = basketIndicatorFunction() // update basket indicator
 };
+
+function ifDublicate(id){ 
+    let checkStatus = false; // check is dublicated item
+    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
+    console.log('is dublicate')
+    temp_basket.map(el => { // check on dublicate
+        if(el.id == headphones[getIdNumber(id)].id){
+            el.counts++;
+            checkStatus = true; // find dublicate
+            localStorage.setItem('basketArray', JSON.stringify(temp_basket)); // set basket
+        }
+    });
+
+    checkStatus ? checkStatus : inNotDublicate(id);
+}
+
+function inNotDublicate(id){
+    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
+    console.log('is not dublicated')
+    temp_basket.push( headphones[getIdNumber(id)] ); // push item in basket
+    localStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
+}

@@ -3,6 +3,10 @@ html, body{
     padding: 0;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 h2{
     font-family: 'Montserrat';
     font-style: normal;
@@ -143,6 +147,47 @@ main{
     width: 1110px;
 }
 
+.basket_wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.basket_shop{
+    width: 350px;
+    height: 115px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+
+.basket_shop_button{
+    position: relative;
+    width: 350px;
+    height: 65px;
+
+    background: #101010;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
+.basket_placeholder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 0 20px 0 20px;
+}
+
+.result_palceholder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .card_container{
     position: relative;
     width: 1140px;
@@ -164,8 +209,9 @@ main{
     margin: 15px;
 }
 
+
 .card_img{
-    height: 200px;
+    height: 230px;
     padding-top: 30px;
 
     text-align: center;
@@ -218,7 +264,49 @@ main{
     border-radius: 10px;
 }
 
+/* ------------ basket card ------------ */
+
+.basket_card{
+    display: flex;
+    position: relative;
+    width: 633px;
+    height: 218px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+
+    margin: 15px;
+}
+
+.basket_card_img{
+    width: 146px;
+    height: 136px;
+    margin: 20px;
+}
+
+.basket_card_line{
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.basket_card_naming{
+    display: flex;
+    flex-direction: column;
+}
+
+.basket_delete_item{
+    
+}
+
+.basket_delete_button{
+    
+}
+
 footer{
+    z-index: 1;
     position: fixed;
     bottom: 0px;
 

@@ -14,13 +14,9 @@ const basket = document.getElementById('basket');
 const contacts = document.getElementById('contacts');
 const services = document.getElementById('services');
 
-// selectors for rendering
-const wrls_container = document.getElementById('basket_container');
-
-// indicator
+// indicator selector
 const basket_indicator = document.getElementById('basket_indicator');
-
-basket_indicator.innerHTML = localStorage.length;
+const shop_result = document.getElementById('shop_result');
 
 // change language functions
 let lang = sessionStorage.getItem('lang');
@@ -70,6 +66,16 @@ function onEnglish(){
 
 // <----------------------- logic ----------------------->
 
+const basketArray = []; // work array for save basket items
+
+function basketIndicatorFunction(){ // count the array length
+    let sumOfCounts = 0;
+    (JSON.parse( localStorage.getItem('basketArray')) ).map(el => { 
+        sumOfCounts += el.counts
+    })
+    return sumOfCounts;
+}
+
 window.onload = function(){
     CardRendering(); // cards rendering
 
@@ -77,54 +83,50 @@ window.onload = function(){
         if(event.target.classList.contains('button_class_selector')){
             addBasket(event.target.id);
         }
-        basket_indicator.innerHTML = localStorage.length; // indicator rendering
     }
+
+    if(localStorage.getItem('basketArray') == null){ // basket in local storage created if basket is empty
+        localStorage.setItem('basketArray', JSON.stringify(basketArray));
+    }
+
+    basket_indicator.innerHTML = basketIndicatorFunction();
 }
 
 function createCard(object){ // item's cards rendering
 
-    let {id, img, title, price, rate, type} = object;
+    let {img, title, price} = object;
 
     let card = document.createElement('div');
-    card.classList.add('card');
-    basket_container.append(card)
+    card.classList.add('basket_card');
+    card_container.append(card)
 
     card.innerHTML = `
-    <div class="card_img"><img src="${img}" alt="headphones"></img></div>
-    <div class="card_line">
-        <div class="card_name"><h3>${title}</h3></div>
-        <div class="card_price">
-            <p class="regular colored plus_sized">${price} &#8381</p>
-            <p class="regular colored striked">${price + ((price/100) * 15)} &#8381</p>
+    <div class="basket_card_line">
+
+        <div class="basket_card_img_holder">
+            <img class="basket_card_img" src="${img}" alt="headphones"></img>
         </div>
-    </div>
-    
-    <div class="card_line">
-        <div class="card_rate">
-            <img src="Img/iconcs/Star.png" alt="star">
-            <span class="card_span">${rate}</span>
+
+        <div class="basket_card_naming">
+            <div class="card_name"><h3>${title}</h3></div>
+            <div class="card_price">
+            <p class="regular plus_sized">${price} &#8381</p>
         </div>
-        <div><button class="card_button"><p class="button_class_selector plus_sized" 
-        id="buy_button ${id}">Buy</p></button></div>
+
+        <div class="basket_delete_item">
+            <img class="basket_delete_button" src="Img/iconcs/Rubish.png"  alt="delete item"></img>
+        </div>
+
     </div>`
 }
 
+
+
 function CardRendering(){
-
-    localStorage.forEach(el =>{
-        if(JSON.parse(localStorage.getItem(el)).slice(0, 5) == button){
-            console.log(JSON.parse(el).slice(0, 5))
-        }
+    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
+    temp_basket.forEach(el =>{ // call rendering headphones(card_container) section
+        createCard(el);
     })
-
-for(let i = 0; i < localStorage.length; i++){
-    localStorage.getItem()
-}
-
-    // headphones.forEach(el =>{ // call rendering headphones(card_container) section
-    //     createCard(el);
-    // })
-
 }
 
 function getIdNumber(str){ // get id from button name
