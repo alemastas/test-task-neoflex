@@ -1,6 +1,4 @@
 
-// <----------------------- language handler ----------------------->
-
 // change language buttons
 const buttonEng = document.getElementById('eng');
 const buttonRus = document.getElementById('rus');
@@ -8,23 +6,32 @@ const buttonRus = document.getElementById('rus');
 // selectors
 const headph_lang = document.getElementById('headph_lang');
 const wirelessph = document.getElementById('wirelessph_lang');
-const buy_button = document.querySelectorAll('#buy_button');
 const favorite = document.getElementById('favorite');
 const basket = document.getElementById('basket');
 const contacts = document.getElementById('contacts');
 const services = document.getElementById('services');
+const basket_shop_button = document.getElementsByClassName('basket_shop_button');
 
 // indicator selector
 const basket_indicator = document.getElementById('basket_indicator');
 const shop_result = document.getElementById('shop_result');
 
-// change language functions
-let lang = sessionStorage.getItem('lang');
-if(lang ==! null || lang == undefined){
-    sessionStorage.setItem('lang', 'rus');
-    onRussian();
-} else if(lang == 'rus'){ onRussian() }
-else if(lang == 'eng'){ onEnglish() }
+
+// <----------------------- language handler ----------------------->
+
+
+// change language init
+function changeLanguage(){
+    let lang = sessionStorage.getItem('lang');
+    if(lang ==! null || lang == undefined){
+        sessionStorage.setItem('lang', 'rus');
+        onRussian();
+    } else if(lang == 'rus'){ 
+        onRussian() 
+    } else if(lang == 'eng'){ 
+        onEnglish() 
+    }
+}
 
 buttonRus.addEventListener('click', function(){
     onRussian();
@@ -38,7 +45,6 @@ function onRussian(){
     sessionStorage.setItem('lang', 'rus');
 
     headph_lang.innerHTML = 'Корзина';
-    buy_button.innerHTML = 'Купить';
     favorite.innerHTML = 'Избранное';
     basket.innerHTML = 'Корзина';
     contacts.innerHTML = 'Контакты';
@@ -53,7 +59,6 @@ function onEnglish(){
     sessionStorage.setItem('lang', 'eng');
 
     headph_lang.innerHTML = 'Basket';
-    buy_button.innerHTML = 'Buy';
     favorite.innerHTML = 'Favorite';
     basket.innerHTML = 'Basket';
     contacts.innerHTML = 'Contacts';
@@ -70,7 +75,7 @@ const basketArray = []; // work array for save basket items
 
 function basketIndicatorFunction(){ // count the array length
     let sumOfCounts = 0;
-    (JSON.parse( localStorage.getItem('basketArray')) ).map(el => { 
+    (JSON.parse( sessionStorage.getItem('basketArray')) ).map(el => { 
         sumOfCounts += el.counts
     })
     return sumOfCounts;
@@ -78,23 +83,30 @@ function basketIndicatorFunction(){ // count the array length
 
 window.onload = function(){
     CardRendering(); // cards rendering
+    changeLanguage(); // change language
+    eventAdd(); // add event click
+    isBasketExist(); // check basket on exist
+    basket_indicator.innerHTML = basketIndicatorFunction();
+    shop_result.innerHTML = sumItemsIndicator();
+}
 
+function eventAdd(){
     document.onclick = event => { // get event for function
         if(event.target.classList.contains('button_class_selector')){
             addBasket(event.target.id);
         }
     }
-
-    if(localStorage.getItem('basketArray') == null){ // basket in local storage created if basket is empty
-        localStorage.setItem('basketArray', JSON.stringify(basketArray));
-    }
-
-    basket_indicator.innerHTML = basketIndicatorFunction();
 }
 
-function createCard(object){ // item's cards rendering
+function isBasketExist(){
+    if(sessionStorage.getItem('basketArray') == null || sessionStorage.getItem('basketArray') == ''){ // basket in local storage created if basket is empty
+        sessionStorage.setItem('basketArray', JSON.stringify(basketArray));
+    }
+}
 
-    let {img, title, price} = object;
+function createBasketCard(object){ // item's cards rendering
+
+    let {img, title, price, id, counts} = object;
 
     let card = document.createElement('div');
     card.classList.add('basket_card');
@@ -102,7 +114,6 @@ function createCard(object){ // item's cards rendering
 
     card.innerHTML = `
     <div class="basket_card_line">
-
         <div class="basket_card_img_holder">
             <img class="basket_card_img" src="${img}" alt="headphones"></img>
         </div>
@@ -110,25 +121,56 @@ function createCard(object){ // item's cards rendering
         <div class="basket_card_naming">
             <div class="card_name"><h3>${title}</h3></div>
             <div class="card_price">
-            <p class="regular plus_sized">${price} &#8381</p>
+                <p class="regular plus_sized">${price} &#8381</p>
+            </div>
         </div>
 
         <div class="basket_delete_item">
-            <img class="basket_delete_button" src="Img/iconcs/Rubish.png"  alt="delete item"></img>
+            <img class="basket_delete_button" id"${id}" src="Img/iconcs/Rubish.png"  
+            alt="delete item"></img>
+        </div>
+    </div>
+
+    <div class="basket_card_counter">
+        <div class="basket_card_numbers">
+            <button class="basket_card_counter_btn" id="minus">-</button>
+                <span>${counts}</span>
+            <button class="basket_card_counter_btn" id="plus">+</button>
         </div>
 
-    </div>`
+        <div class="card_price">
+            <p class="regular plus_sized">${price * counts} &#8381</p>
+        </div>
+    </div>
+    `
 }
 
-
-
 function CardRendering(){
-    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
-    temp_basket.forEach(el =>{ // call rendering headphones(card_container) section
-        createCard(el);
-    })
+    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
+    isBasketExist();
+    if(temp_basket.length > 0){
+        temp_basket.forEach(el =>{ // call rendering headphones(card_container) section
+            createBasketCard(el);
+        })
+    }
 }
 
 function getIdNumber(str){ // get id from button name
     return String(str[str.length - 1])
+}
+
+function clearBasket(){
+    sessionStorage.clear();
+    location.reload();
+}
+
+function sumItemsIndicator(){ // draw sum of items in basket
+    const temp_basket = JSON.parse( sessionStorage.getItem('basketArray') );
+    let sum = 0;
+    if(temp_basket.length > 0){
+        temp_basket.forEach(el =>{ 
+            sum += (el.counts * el.price);
+        })
+        return sum;
+    } else { return 0 }
 }

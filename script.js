@@ -1,6 +1,4 @@
 
-// <----------------------- language handler ----------------------->
-
 // change language buttons
 const buttonEng = document.getElementById('eng');
 const buttonRus = document.getElementById('rus');
@@ -21,13 +19,20 @@ const card_container = document.getElementById('card_container');
 // indicator
 const basket_indicator = document.getElementById('basket_indicator');
 
-// change language functions
-let lang = sessionStorage.getItem('lang');
-if(lang ==! null || lang == undefined){
-    sessionStorage.setItem('lang', 'rus');
-    onRussian();
-} else if(lang == 'rus'){ onRussian() }
-else if(lang == 'eng'){ onEnglish() }
+// <----------------------- language handler ----------------------->
+
+// change language init
+function changeLanguage(){
+    let lang = sessionStorage.getItem('lang');
+    if(lang ==! null || lang == undefined){
+        sessionStorage.setItem('lang', 'rus');
+        onRussian();
+    } else if(lang == 'rus'){ 
+        onRussian() 
+    } else if(lang == 'eng'){ 
+        onEnglish() 
+    }
+}
 
 buttonRus.addEventListener('click', function(){
     onRussian();
@@ -76,7 +81,7 @@ const basketArray = []; // work array for save basket items
 
 function basketIndicatorFunction(){ // count the array length
     let sumOfCounts = 0;
-    (JSON.parse( localStorage.getItem('basketArray')) ).map(el => { 
+    (JSON.parse( sessionStorage.getItem('basketArray')) ).map(el => { 
         sumOfCounts += el.counts
     })
     return sumOfCounts;
@@ -84,105 +89,26 @@ function basketIndicatorFunction(){ // count the array length
 
 window.onload = function(){
     CardRendering(); // cards rendering
+    changeLanguage(); // change language
+    eventAdd(); // add event click
+    isBasketExist(); // check basket on exist
 
+    basket_indicator.innerHTML = basketIndicatorFunction(); // indicator
+}
+
+function eventAdd(){
     document.onclick = event => { // get event for function
         if(event.target.classList.contains('button_class_selector')){
             addBasket(event.target.id);
         }
     }
-
-    if(localStorage.getItem('basketArray') == null){ // basket in local storage created if basket is empty
-        localStorage.setItem('basketArray', JSON.stringify(basketArray));
-    }
-
-    basket_indicator.innerHTML = basketIndicatorFunction(); // indicator
 }
 
-// shop items headphones
-const headphones = [
-    {
-        id: 0,
-        img: 'Img/headphones/Image1.png',
-        title: 'Apple BYZ S852I', 
-        price: 2927,
-        rate: 4.7,
-        type: 'hdph',
-        counts: 1
-    },
-    {
-        id: 1,
-        img: 'Img/headphones/Image2.png',
-        title: 'Apple EarPods', 
-        price: 2327,
-        rate: 4.5,
-        type: 'hdph',
-        counts: 1
-    },
-    {
-        id: 2,
-        img: 'Img/headphones/Image3.png',
-        title: 'Apple EarPods', 
-        price: 2327,
-        rate: 4.5,
-        type: 'hdph',
-        counts: 1
-    },
-    {
-        id: 3,
-        img: 'Img/headphones/Image1.png',
-        title: 'Apple BYZ S8521', 
-        price: 2927,
-        rate: 4.7,
-        type: 'hdph',
-        counts: 1
-    },
-    {
-        id: 4,
-        img: 'Img/headphones/Image2.png',
-        title: 'Apple EarPods', 
-        price: 2327,
-        rate: 4.5,
-        type: 'hdph',
-        counts: 1
-    },
-    {
-        id: 5,
-        img: 'Img/headphones/Image3.png',
-        title: 'Apple EarPods', 
-        price: 2327,
-        rate: 4.5,
-        type: 'hdph',
-        counts: 1
-    },
-    {
-        id: 6,
-        img: 'Img/headphones/Image4.png',
-        title: 'Apple AirPods', 
-        price: 9527,
-        rate: 4.7,
-        type: 'wrls',
-        counts: 1
-    },
-    {
-        id: 7,
-        img: 'Img/headphones/Image5.png',
-        title: 'GERLAX HG-04', 
-        price: 6527,
-        rate: 4.7,
-        type: 'wrls',
-        counts: 1
-    },
-    {
-        id: 8,
-        img: 'Img/headphones/Image6.png',
-        title: 'BOROFONE B04', 
-        price: 7527,
-        rate: 4.7,
-        type: 'wrls',
-        counts: 1
+function isBasketExist(){
+    if(sessionStorage.getItem('basketArray') == null){ // basket in local storage created if basket is empty
+        sessionStorage.setItem('basketArray', JSON.stringify(basketArray));
     }
-
-];
+}
 
 function createCard(object){ // item's cards rendering
 
@@ -225,9 +151,9 @@ function getIdNumber(str){ // get id from button name
 }
 
 function addBasket(id){ // add item to local storage)
-    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
+    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
     if(temp_basket.length == 0){
-        inNotDublicate(id);
+        isNotDublicate(id);
     } else {
         ifDublicate(id);
     }
@@ -235,23 +161,21 @@ function addBasket(id){ // add item to local storage)
 };
 
 function ifDublicate(id){ 
-    let checkStatus = false; // check is dublicated item
-    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
-    console.log('is dublicate')
+    let checkStatus = false; // check dublicated item
+    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
     temp_basket.map(el => { // check on dublicate
         if(el.id == headphones[getIdNumber(id)].id){
             el.counts++;
             checkStatus = true; // find dublicate
-            localStorage.setItem('basketArray', JSON.stringify(temp_basket)); // set basket
+            sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)); // set basket
         }
     });
 
-    checkStatus ? checkStatus : inNotDublicate(id);
+    checkStatus ? checkStatus : isNotDublicate(id);
 }
 
-function inNotDublicate(id){
-    let temp_basket = JSON.parse( localStorage.getItem('basketArray') ); // get basket
-    console.log('is not dublicated')
+function isNotDublicate(id){
+    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
     temp_basket.push( headphones[getIdNumber(id)] ); // push item in basket
-    localStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
+    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
 }

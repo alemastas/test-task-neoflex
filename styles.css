@@ -47,17 +47,9 @@ h3{
     font-size: 20px;
 }
 
-.links_text{
-    line-height: 30px;
-
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 17px;
-}
-
 body{
     background: #EAEAEA;
+    padding: 0 100px 0 100px;
 }
 
 .wrapper{
@@ -137,7 +129,7 @@ header{
 
 main{
     width: 1110px;
-    min-height: 1700px;
+    min-height: 70vh;
 }
 
 .headphones_container{
@@ -158,6 +150,7 @@ main{
 .basket_shop{
     width: 350px;
     height: 115px;
+    margin-top: 15px;
 
     background: #FFFFFF;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
@@ -268,6 +261,7 @@ main{
 
 .basket_card{
     display: flex;
+    flex-direction: column;
     position: relative;
     width: 633px;
     height: 218px;
@@ -286,8 +280,12 @@ main{
 }
 
 .basket_card_line{
+    width: 633px;
+    height: 170px;
     z-index: 1;
     position: relative;
+    padding: 10px;
+
     display: flex;
     flex-direction: row;
 }
@@ -295,20 +293,48 @@ main{
 .basket_card_naming{
     display: flex;
     flex-direction: column;
+    margin: 40px 0 0 10px;
 }
 
 .basket_delete_item{
-    
+    padding-top: 20px;
+    margin: 0 0 0 250px;
 }
 
-.basket_delete_button{
-    
+.basket_card_counter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
+
+    width: 633px;
+}
+
+.basket_card_numbers{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 20px;
+    width: 125px;
+    height: 30px;
+
+    line-height: 30px;
+}
+
+.basket_card_counter_btn{
+    width: 30px;
+    height: 30px;
+
+    border-radius: 15px;
+    border-style: none;
+    background-color: #FFCE7F;
+    cursor: pointer;
 }
 
 footer{
     z-index: 1;
-    position: fixed;
-    bottom: 0px;
+    position: relative;
+    margin-top: 15px;
 
     height: 150px;
     width: 1110px;
@@ -323,9 +349,11 @@ footer{
 
 .footer_logo{
     position: relative;
-    pointer-events: none; /* unactiveate */
+    /* pointer-events: none; // unactiveate */
     cursor: default;
     margin: 10px 0 0 18px;
+    text-decoration: none;
+    color: black;
 }
 
 .footer_links{
@@ -340,15 +368,13 @@ footer{
     list-style: none;
 }
 
-.links_li{
+.links_text{
     line-height: 30px;
 
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 17px;
-
-    color: #1C1C27;
 }
 
 .services{
