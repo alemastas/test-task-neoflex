@@ -136,7 +136,7 @@ function createCard(object){ // item's cards rendering
             <span class="card_span">${rate}</span>
         </div>
         <div><button class="card_button"><p class="button_class_selector plus_sized" 
-        id="buy_button ${id}">Buy</p></button></div>
+        id="${id}">Buy</p></button></div>
     </div>`
 }
 
@@ -144,10 +144,6 @@ function CardRendering(){
     headphones.forEach(el =>{ // call rendering headphones(card_container) section
         createCard(el);
     })
-}
-
-function getIdNumber(str){ // get id from button name
-    return String(str[str.length - 1])
 }
 
 function addBasket(id){ // add item to local storage)
@@ -164,7 +160,7 @@ function ifDublicate(id){
     let checkStatus = false; // check dublicated item
     let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
     temp_basket.map(el => { // check on dublicate
-        if(el.id == headphones[getIdNumber(id)].id){
+        if(el.id == headphones[id].id){
             el.counts++;
             checkStatus = true; // find dublicate
             sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)); // set basket
@@ -176,6 +172,6 @@ function ifDublicate(id){
 
 function isNotDublicate(id){
     let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
-    temp_basket.push( headphones[getIdNumber(id)] ); // push item in basket
+    temp_basket.push( headphones[id] ); // push item in basket
     sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
 }

@@ -155,10 +155,6 @@ function CardRendering(){
     }
 }
 
-function getIdNumber(str){ // get id from button name
-    return String(str[str.length - 1])
-}
-
 function clearBasket(){
     sessionStorage.clear();
     location.reload();
