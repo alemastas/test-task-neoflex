@@ -11,6 +11,7 @@ const favorite = document.getElementById('favorite');
 const basket = document.getElementById('basket');
 const contacts = document.getElementById('contacts');
 const services = document.getElementById('services');
+const button_class_selector = document.getElementsByClassName('button_class_selector')
 
 // selectors for rendering
 const wrls_container = document.getElementById('wrls_container');
@@ -47,7 +48,7 @@ function onRussian(){
 
     headph_lang.innerHTML = 'Наушники';
     wirelessph.innerHTML = 'Беспроводные наушники';
-    buy_button.innerHTML = 'Купить';
+    button_class_selector.innerHTML = 'Купить';
     favorite.innerHTML = 'Избранное';
     basket.innerHTML = 'Корзина';
     contacts.innerHTML = 'Контакты';
@@ -63,7 +64,7 @@ function onEnglish(){
 
     headph_lang.innerHTML = 'Headphones';
     wirelessph.innerHTML = 'Wireless headphones';
-    buy_button.innerHTML = 'Buy';
+    button_class_selector.innerHTML = 'Купить';
     favorite.innerHTML = 'Favorite';
     basket.innerHTML = 'Basket';
     contacts.innerHTML = 'Contacts';
@@ -94,6 +95,10 @@ window.onload = function(){
     isBasketExist(); // check basket on exist
 
     basket_indicator.innerHTML = basketIndicatorFunction(); // indicator
+}
+
+function getTempBasket(){
+    return JSON.parse(sessionStorage.getItem('basketArray'));
 }
 
 function eventAdd(){
@@ -135,8 +140,8 @@ function createCard(object){ // item's cards rendering
             <img src="Img/iconcs/Star.png" alt="star">
             <span class="card_span">${rate}</span>
         </div>
-        <div><button class="card_button"><p class="button_class_selector plus_sized" 
-        id="${id}">Buy</p></button></div>
+        <button class="card_button"><p class="button_class_selector plus_sized" 
+        id="${id}">Buy</p></button>
     </div>`
 }
 
@@ -147,7 +152,7 @@ function CardRendering(){
 }
 
 function addBasket(id){ // add item to local storage)
-    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
+    let temp_basket = getTempBasket();
     if(temp_basket.length == 0){
         isNotDublicate(id);
     } else {
@@ -158,9 +163,9 @@ function addBasket(id){ // add item to local storage)
 
 function ifDublicate(id){ 
     let checkStatus = false; // check dublicated item
-    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
+    let temp_basket = getTempBasket();
     temp_basket.map(el => { // check on dublicate
-        if(el.id == headphones[id].id){
+        if(el.id == id){
             el.counts++;
             checkStatus = true; // find dublicate
             sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)); // set basket
@@ -171,7 +176,7 @@ function ifDublicate(id){
 }
 
 function isNotDublicate(id){
-    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
+    let temp_basket = getTempBasket();
     temp_basket.push( headphones[id] ); // push item in basket
     sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
 }

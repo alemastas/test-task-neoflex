@@ -90,12 +90,44 @@ window.onload = function(){
     shop_result.innerHTML = sumItemsIndicator();
 }
 
+function getTempBasket(){
+    return JSON.parse(sessionStorage.getItem('basketArray'));
+}
+
 function eventAdd(){
     document.onclick = event => { // get event for function
-        if(event.target.classList.contains('button_class_selector')){
-            addBasket(event.target.id);
+        if(event.target.classList.contains('basket_delete_button')){
+            deleteItem(event.target.id);
+        }
+        else if(event.target.classList.contains('btn_plus')){
+            plusItem(event.target.id);
+        }
+        else if(event.target.classList.contains('btn_minus')){
+            minusItem(event.target.id);
         }
     }
+}
+
+function plusItem(id){
+    let temp_basket = getTempBasket();
+    temp_basket.forEach(el => {
+        if(el.id == id){
+            el.counts++;
+        }
+    })
+    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
+    location.reload();
+}
+
+function minusItem(id){
+    let temp_basket = getTempBasket();
+    temp_basket.forEach(el => {
+        if(el.id == id){
+            el.counts--;
+        }
+    })
+    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
+    location.reload();
 }
 
 function isBasketExist(){
@@ -126,16 +158,16 @@ function createBasketCard(object){ // item's cards rendering
         </div>
 
         <div class="basket_delete_item">
-            <img class="basket_delete_button" id"${id}" src="Img/iconcs/Rubish.png"  
+            <input type="image" class="basket_delete_button" data-title="Delete" id="${id}" src="Img/iconcs/Rubish.png"  
             alt="delete item"></img>
         </div>
     </div>
 
     <div class="basket_card_counter">
         <div class="basket_card_numbers">
-            <button class="basket_card_counter_btn" id="minus">-</button>
+            <button class="basket_card_counter_btn btn_minus" id="${id}">-</button>
                 <span>${counts}</span>
-            <button class="basket_card_counter_btn" id="plus">+</button>
+            <button class="basket_card_counter_btn btn_plus" id="${id}">+</button>
         </div>
 
         <div class="card_price">
@@ -146,7 +178,7 @@ function createBasketCard(object){ // item's cards rendering
 }
 
 function CardRendering(){
-    let temp_basket = JSON.parse( sessionStorage.getItem('basketArray') ); // get basket
+    let temp_basket = getTempBasket();
     isBasketExist();
     if(temp_basket.length > 0){
         temp_basket.forEach(el =>{ // call rendering headphones(card_container) section
@@ -155,13 +187,25 @@ function CardRendering(){
     }
 }
 
+function deleteItem(id){
+    let temp_basket = getTempBasket();
+    temp_basket.forEach( el => {
+        if(el.id == id){
+            let index = temp_basket.indexOf(el);
+            temp_basket.splice(index, 1);
+        }
+    })
+    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
+    location.reload();
+}
+
 function clearBasket(){
     sessionStorage.clear();
     location.reload();
 }
 
 function sumItemsIndicator(){ // draw sum of items in basket
-    const temp_basket = JSON.parse( sessionStorage.getItem('basketArray') );
+    const temp_basket = getTempBasket();
     let sum = 0;
     if(temp_basket.length > 0){
         temp_basket.forEach(el =>{ 
