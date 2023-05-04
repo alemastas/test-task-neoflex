@@ -124,7 +124,7 @@ function updateSum(id, el){ // update sum in basket shop
     const sumSelector = `sum${id}`;
     const sum = (+el.counts) * (+el.price);
     const sumContainer = document.getElementById(sumSelector);
-    sumContainer.innerHTML = sum;
+    sumContainer.innerHTML = sum + ' <span>&#8381</span>';
 }
 
 function plusItem(id){

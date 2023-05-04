@@ -144,8 +144,8 @@ function createCard(object){ // item's cards rendering
             <img src="Img/iconcs/Star.png" alt="star">
             <span class="card_span">${rate}</span>
         </div>
-        <button class="card_button"><p class="button_class_selector plus_sized" 
-        id="${id}">Buy</p></button>
+        <button class="card_button"><span class="button_class_selector plus_sized" 
+        id="${id}">Buy</span></button>
     </div>`
 }
 
