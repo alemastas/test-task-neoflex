@@ -101,6 +101,10 @@ function getTempBasket(){
     return JSON.parse(sessionStorage.getItem('basketArray'));
 }
 
+function setTempBasket(temp_basket){
+    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
+}
+
 function eventAdd(){
     document.onclick = event => { // get event for function
         if(event.target.classList.contains('button_class_selector')){
@@ -109,9 +113,9 @@ function eventAdd(){
     }
 }
 
-function isBasketExist(){
-    if(sessionStorage.getItem('basketArray') == null){ // basket in local storage created if basket is empty
-        sessionStorage.setItem('basketArray', JSON.stringify(basketArray));
+function isBasketExist(){ // basket in local storage created if basket is empty
+    if(getTempBasket() == null){ 
+        setTempBasket(basketArray);
     }
 }
 
@@ -168,7 +172,7 @@ function ifDublicate(id){
         if(el.id == id){
             el.counts++;
             checkStatus = true; // find dublicate
-            sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)); // set basket
+            setTempBasket(temp_basket); // set basket
         }
     });
 
@@ -178,5 +182,5 @@ function ifDublicate(id){
 function isNotDublicate(id){
     let temp_basket = getTempBasket();
     temp_basket.push( headphones[id] ); // push item in basket
-    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket)) // set basket
+    setTempBasket(temp_basket); // set basket
 }

@@ -73,7 +73,7 @@ function onEnglish(){
 
 const basketArray = []; // work array for save basket items
 
-function basketIndicatorFunction(){ // count the array length
+function basketIndicatorFunction(){ // show count the array length
     let sumOfCounts = 0;
     (JSON.parse( sessionStorage.getItem('basketArray')) ).map(el => { 
         sumOfCounts += el.counts
@@ -94,6 +94,10 @@ function getTempBasket(){
     return JSON.parse(sessionStorage.getItem('basketArray'));
 }
 
+function setTempBasket(temp_basket){
+    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
+}
+
 function eventAdd(){
     document.onclick = event => { // get event for function
         if(event.target.classList.contains('basket_delete_button')){
@@ -101,11 +105,26 @@ function eventAdd(){
         }
         else if(event.target.classList.contains('btn_plus')){
             plusItem(event.target.id);
+            shop_result.innerHTML = sumItemsIndicator();
         }
         else if(event.target.classList.contains('btn_minus')){
             minusItem(event.target.id);
+            shop_result.innerHTML = sumItemsIndicator();
         }
     }
+}
+
+function getIdCounter(id, el){ // get personal id for html-item
+    const getIdCounter = `id_counter${id}`
+    const id_counter = document.getElementById(getIdCounter)
+    id_counter.innerHTML = el.counts;
+}
+
+function updateSum(id, el){ // update sum in basket shop
+    const sumSelector = `sum${id}`;
+    const sum = (+el.counts) * (+el.price);
+    const sumContainer = document.getElementById(sumSelector);
+    sumContainer.innerHTML = sum;
 }
 
 function plusItem(id){
@@ -113,26 +132,31 @@ function plusItem(id){
     temp_basket.forEach(el => {
         if(el.id == id){
             el.counts++;
+            getIdCounter(id, el);
+            updateSum(id, el);
         }
     })
-    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
-    location.reload();
+    setTempBasket(temp_basket);
 }
 
 function minusItem(id){
     let temp_basket = getTempBasket();
     temp_basket.forEach(el => {
         if(el.id == id){
+            if(el.counts < 1){ 
+                return;
+            }
             el.counts--;
+            getIdCounter(id, el);
+            updateSum(id, el);
         }
     })
-    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
-    location.reload();
+    setTempBasket(temp_basket);
 }
 
 function isBasketExist(){
-    if(sessionStorage.getItem('basketArray') == null || sessionStorage.getItem('basketArray') == ''){ // basket in local storage created if basket is empty
-        sessionStorage.setItem('basketArray', JSON.stringify(basketArray));
+    if(getTempBasket() == null || getTempBasket() == ''){ // basket in local storage created if basket is empty
+        setTempBasket(basketArray);;
     }
 }
 
@@ -166,20 +190,20 @@ function createBasketCard(object){ // item's cards rendering
     <div class="basket_card_counter">
         <div class="basket_card_numbers">
             <button class="basket_card_counter_btn btn_minus" id="${id}">-</button>
-                <span>${counts}</span>
+                <span id="id_counter${id}">${counts}</span>
             <button class="basket_card_counter_btn btn_plus" id="${id}">+</button>
         </div>
 
         <div class="card_price">
-            <p class="regular plus_sized">${price * counts} &#8381</p>
+            <p class="regular plus_sized" id="sum${id}">${price * counts} &#8381</p>
         </div>
     </div>
     `
 }
 
 function CardRendering(){
-    let temp_basket = getTempBasket();
     isBasketExist();
+    let temp_basket = getTempBasket();
     if(temp_basket.length > 0){
         temp_basket.forEach(el =>{ // call rendering headphones(card_container) section
             createBasketCard(el);
@@ -195,7 +219,7 @@ function deleteItem(id){
             temp_basket.splice(index, 1);
         }
     })
-    sessionStorage.setItem('basketArray', JSON.stringify(temp_basket));
+    setTempBasket(temp_basket);
     location.reload();
 }
 
