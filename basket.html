@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
     <link rel="stylesheet" href="styles.css">
     <link type="Image/x-icon" href="Img/iconcs/favicon.png" rel="icon">
     <title>QPICK</title>
 </head>
 <body>
     <div class="wrapper">
-
         <header>
             <div class="header_logo">
                 <a href="index.html" class="logo_link"><h2>QPICK</h2></a>
@@ -29,50 +27,36 @@
                     </div>
             </div>
         </header>
-
-
         <main>
             <div class="basket_container">
                 <div class="main_title"><p class="main_title" id="headph_lang">Basket</p></div>
-
                     <div class="basket_wrapper">
-                        
                         <div class="card_container" id="card_container">
-    
                             <!-- here cards rendering -->
-        
                         </div>
                         <div class="basket_shop">
                             <div class="basket_placeholder">
                                 <h3>Итого</h3>
                                 <div class="result_palceholder">
-                                    <h3>&#8381</h3><h3 id="shop_result">0</h3>
+                                    <h3>&#8381;</h3><h3 id="shop_result">0</h3>
                                 </div>
                             </div>
-                            <button class="basket_shop_button"><h3 style="color: white;">
-                                Перейти к оформлению</h3></button>
+                            <button class="basket_shop_button"><span class="basket_shop_button_text" id="basket_shop_button_text">
+                                Перейти к оформлению</span></button>
                         </div>
-
                     </div>
-
             </div>
-            
         </main>
-
-
         <footer>
             <div class="footer_logo"><h2>QPICK</h2></div>
             <div class="footer_links">
                 <ul class="links_ul">
                     <li class="links_text" id="favorite" style="pointer-events: none;">Favorite</li>
-                    <a href="basket.html" class="non_decoration">
-                        <li class="links_text" id="basket">Basket</li>
-                    </a>
+                        <li class="links_text" ><a href="basket.html" class="non_decoration" id="basket">Basket</a></li>
                     <li class="links_text" id="contacts" style="pointer-events: none;">Contacts</li>
                 </ul>
                 <div class="services">
                     <p class="links_text" id="services"  style="pointer-events: none;">Terms of service</p>
-
                     <div class="lang_handler">
                         <div class="lang_icon"><img class="lang_icon" src="Img/iconcs/Lang.svg" alt="lang_icon.png"></div>
                         <button class="lang_button links_text" id="rus">Рус</button>
@@ -93,7 +77,6 @@
                     alt="my_git.png"></a></div>
             </div>
         </footer>
-
     </div>
 <script src="basket_script.js"></script>
 </body>

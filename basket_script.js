@@ -11,6 +11,7 @@ const basket = document.getElementById('basket');
 const contacts = document.getElementById('contacts');
 const services = document.getElementById('services');
 const basket_shop_button = document.getElementsByClassName('basket_shop_button');
+const basket_shop_button_text = document.getElementById('basket_shop_button_text');
 
 // indicator selector
 const basket_indicator = document.getElementById('basket_indicator');
@@ -49,6 +50,7 @@ function onRussian(){
     basket.innerHTML = 'Корзина';
     contacts.innerHTML = 'Контакты';
     services.innerHTML = 'Условия сервиса';
+    basket_shop_button_text.innerHTML = 'Перейти к оформлению';
 
     // colorize buttons
     buttonEng.classList.remove('colored');
@@ -63,6 +65,7 @@ function onEnglish(){
     basket.innerHTML = 'Basket';
     contacts.innerHTML = 'Contacts';
     services.innerHTML = 'Terms of service';
+    basket_shop_button_text.innerHTML = 'Proceed to ordering';
 
     // colorize buttons
     buttonRus.classList.remove('colored');

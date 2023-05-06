@@ -11,7 +11,7 @@ const favorite = document.getElementById('favorite');
 const basket = document.getElementById('basket');
 const contacts = document.getElementById('contacts');
 const services = document.getElementById('services');
-const button_class_selector = document.getElementsByClassName('button_class_selector')
+// const button_class_selector = document.getElementsByClassName('button_class_selector')
 
 // selectors for rendering
 const wrls_container = document.getElementById('wrls_container');
@@ -35,6 +35,8 @@ function changeLanguage(){
     }
 }
 
+let lang = '';
+
 buttonRus.addEventListener('click', function(){
     onRussian();
 });
@@ -48,7 +50,7 @@ function onRussian(){
 
     headph_lang.innerHTML = 'Наушники';
     wirelessph.innerHTML = 'Беспроводные наушники';
-    button_class_selector.innerHTML = 'Купить';
+    // button_class_selector.innerHTML = 'Купить';
     favorite.innerHTML = 'Избранное';
     basket.innerHTML = 'Корзина';
     contacts.innerHTML = 'Контакты';
@@ -57,6 +59,10 @@ function onRussian(){
     // colorize buttons
     buttonEng.classList.remove('colored');
     buttonRus.classList.add('colored');
+
+    card_container.innerHTML = '';
+    wrls_container.innerHTML = '';
+    CardRendering();
 }
 
 function onEnglish(){
@@ -64,7 +70,7 @@ function onEnglish(){
 
     headph_lang.innerHTML = 'Headphones';
     wirelessph.innerHTML = 'Wireless headphones';
-    button_class_selector.innerHTML = 'Купить';
+    // button_class_selector.innerHTML = 'Buy';
     favorite.innerHTML = 'Favorite';
     basket.innerHTML = 'Basket';
     contacts.innerHTML = 'Contacts';
@@ -73,6 +79,10 @@ function onEnglish(){
     // colorize buttons
     buttonRus.classList.remove('colored');
     buttonEng.classList.add('colored');
+    
+    card_container.innerHTML = '';
+    wrls_container.innerHTML = '';
+    CardRendering();
 }
 
 
@@ -145,7 +155,7 @@ function createCard(object){ // item's cards rendering
             <span class="card_span">${rate}</span>
         </div>
         <button class="card_button"><span class="button_class_selector plus_sized" 
-        id="${id}">Buy</span></button>
+        id="${id}">${sessionStorage.getItem('lang') == 'rus' ? 'Купить' : 'Buy'}</span></button>
     </div>`
 }
 

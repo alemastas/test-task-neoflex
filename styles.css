@@ -7,6 +7,15 @@ html, body{
     box-sizing: border-box;
 }
 
+.basket_shop_button_text{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+    color: white;
+}
+
 h2{
     font-family: 'Montserrat';
     font-style: normal;
@@ -129,7 +138,7 @@ header{
 
 main{
     width: 1110px;
-    min-height: 70vh;
+    min-height: 100vh;
 }
 
 .headphones_container{
@@ -246,7 +255,7 @@ main{
 }
 
 .card_button{
-    width: 50px;
+    /* width: 50px; */
     height: 30px;
     border: none;
     background-color: inherit;
@@ -275,10 +284,14 @@ main{
     margin: 15px;
 }
 
+.basket_card_img_holder{
+    width: 170px;
+    padding: 20px;
+}
+
 .basket_card_img{
     width: 146px;
     height: 136px;
-    margin: 20px;
 }
 
 .basket_card_line{
@@ -293,6 +306,7 @@ main{
 }
 
 .basket_card_naming{
+    width: 150px;
     display: flex;
     flex-direction: column;
     margin: 40px 0 0 10px;
