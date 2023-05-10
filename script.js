@@ -88,7 +88,7 @@ function onEnglish(){
 
 // <----------------------- logic ----------------------->
 
-const basketArray = []; // work array for save basket items
+const basketArray = []; // work sample
 
 function basketIndicatorFunction(){ // count the array length
     let sumOfCounts = 0;
@@ -103,7 +103,6 @@ window.onload = function(){
     changeLanguage(); // change language
     eventAdd(); // add event click
     isBasketExist(); // check basket on exist
-
     basket_indicator.innerHTML = basketIndicatorFunction(); // indicator
 }
 

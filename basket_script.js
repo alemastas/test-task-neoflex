@@ -65,7 +65,7 @@ function onEnglish(){
     basket.innerHTML = 'Basket';
     contacts.innerHTML = 'Contacts';
     services.innerHTML = 'Terms of service';
-    basket_shop_button_text.innerHTML = 'Proceed to ordering';
+    basket_shop_button_text.innerHTML = 'To ordering';
 
     // colorize buttons
     buttonRus.classList.remove('colored');
@@ -74,7 +74,7 @@ function onEnglish(){
 
 // <----------------------- logic ----------------------->
 
-const basketArray = []; // work array for save basket items
+const basketArray = []; // work sample
 
 function basketIndicatorFunction(){ // show count the array length
     let sumOfCounts = 0;
@@ -105,14 +105,17 @@ function eventAdd(){
     document.onclick = event => { // get event for function
         if(event.target.classList.contains('basket_delete_button')){
             deleteItem(event.target.id);
+            basket_indicator.innerHTML = basketIndicatorFunction();
         }
         else if(event.target.classList.contains('btn_plus')){
             plusItem(event.target.id);
             shop_result.innerHTML = sumItemsIndicator();
+            basket_indicator.innerHTML = basketIndicatorFunction();
         }
         else if(event.target.classList.contains('btn_minus')){
             minusItem(event.target.id);
             shop_result.innerHTML = sumItemsIndicator();
+            basket_indicator.innerHTML = basketIndicatorFunction();
         }
     }
 }
