@@ -1,4 +1,6 @@
 // shop items headphones
+// hdph - wired headphones
+// wrls - wireless headphones
 const headphones = [
     {
         img: 'Img/headphones/Image1.png',

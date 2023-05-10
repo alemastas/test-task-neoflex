@@ -62,7 +62,7 @@ function onRussian(){
 
     card_container.innerHTML = '';
     wrls_container.innerHTML = '';
-    CardRendering();
+    CardRendering(); // redraw cards
 }
 
 function onEnglish(){
@@ -70,7 +70,6 @@ function onEnglish(){
 
     headph_lang.innerHTML = 'Headphones';
     wirelessph.innerHTML = 'Wireless headphones';
-    // button_class_selector.innerHTML = 'Buy';
     favorite.innerHTML = 'Favorite';
     basket.innerHTML = 'Basket';
     contacts.innerHTML = 'Contacts';
@@ -82,7 +81,7 @@ function onEnglish(){
     
     card_container.innerHTML = '';
     wrls_container.innerHTML = '';
-    CardRendering();
+    CardRendering(); //redraw cards
 }
 
 
@@ -90,7 +89,7 @@ function onEnglish(){
 
 const basketArray = []; // work sample
 
-function basketIndicatorFunction(){ // count the array length
+function basketIndicatorFunction(){ // show sum of basketArray items in sessionStorage
     let sumOfCounts = 0;
     (JSON.parse( sessionStorage.getItem('basketArray')) ).map(el => { 
         sumOfCounts += el.counts
@@ -174,22 +173,22 @@ function addBasket(id){ // add item to local storage)
     basket_indicator.innerHTML = basketIndicatorFunction() // update basket indicator
 };
 
-function ifDublicate(id){ 
-    let checkStatus = false; // check dublicated item
+function ifDublicate(id){ // if sessionStorage includes added item
+    let checkStatus = false;
     let temp_basket = getTempBasket();
     temp_basket.map(el => { // check on dublicate
         if(el.id == id){
             el.counts++;
-            checkStatus = true; // find dublicate
-            setTempBasket(temp_basket); // set basket
+            checkStatus = true; 
+            setTempBasket(temp_basket); 
         }
     });
-
-    checkStatus ? checkStatus : isNotDublicate(id);
+    // if item not dublicated, calling isNotDublicate
+    checkStatus ? checkStatus : isNotDublicate(id); 
 }
 
-function isNotDublicate(id){
+function isNotDublicate(id){ // use if sessionStorage not includes added item
     let temp_basket = getTempBasket();
-    temp_basket.push( headphones[id] ); // push item in basket
-    setTempBasket(temp_basket); // set basket
+    temp_basket.push( headphones[id] );
+    setTempBasket(temp_basket);
 }

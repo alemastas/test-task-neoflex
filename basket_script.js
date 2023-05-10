@@ -76,7 +76,7 @@ function onEnglish(){
 
 const basketArray = []; // work sample
 
-function basketIndicatorFunction(){ // show count the array length
+function basketIndicatorFunction(){ // show sum of basketArray items in sessionStorage
     let sumOfCounts = 0;
     (JSON.parse( sessionStorage.getItem('basketArray')) ).map(el => { 
         sumOfCounts += el.counts
@@ -89,8 +89,8 @@ window.onload = function(){
     changeLanguage(); // change language
     eventAdd(); // add event click
     isBasketExist(); // check basket on exist
-    basket_indicator.innerHTML = basketIndicatorFunction();
-    shop_result.innerHTML = sumItemsIndicator();
+    basket_indicator.innerHTML = basketIndicatorFunction(); // indicator
+    shop_result.innerHTML = sumItemsIndicator(); // indicator
 }
 
 function getTempBasket(){
@@ -126,7 +126,7 @@ function getIdCounter(id, el){ // get personal id for html-item
     id_counter.innerHTML = el.counts;
 }
 
-function updateSum(id, el){ // update sum in basket shop
+function updateSum(id, el){
     const sumSelector = `sum${id}`;
     const sum = (+el.counts) * (+el.price);
     const sumContainer = document.getElementById(sumSelector);
@@ -161,7 +161,7 @@ function minusItem(id){
 }
 
 function isBasketExist(){
-    if(getTempBasket() == null || getTempBasket() == ''){ // basket in local storage created if basket is empty
+    if(getTempBasket() == null || getTempBasket() == ''){ // basket in session storage created if basket are empty
         setTempBasket(basketArray);;
     }
 }
