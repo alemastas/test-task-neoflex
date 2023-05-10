@@ -1,3 +1,3 @@
-# Test task from Neoflex. 
+# TEST TASK FROM NEOFLEX
 
-##[GH-PAGES](https://alemastas.github.io/test-task-neoflex/)
+[ON GH-PAGES](https://alemastas.github.io/test-task-neoflex/)
