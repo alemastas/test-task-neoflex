@@ -66,8 +66,7 @@ const headphones = [
 
 ];
 
-// 
-(function addIdCounts(){
+(function addIdCounts(){ // add props for work
     headphones.forEach(el => {
         el.id = (headphones.indexOf(el))
         el.counts = 1;
